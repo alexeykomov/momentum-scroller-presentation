@@ -1,0 +1,245 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+
+    title.
+      Physics of momentum scrolling - presentation
+
+    link(rel='stylesheet', href='css/reveal.css')
+    link(rel='stylesheet', href='css/theme/black.css')
+    link(rel='stylesheet', href='css/all.css')
+    //Theme used for syntax highlighting of code.
+    link(rel='stylesheet', href='lib/css/zenburn.css')
+
+    //Printing and PDF exports..
+    script.
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+  body
+    div.reveal
+      div.slides
+
+        section(data-background='img/photo-1458724029936-2cc6ee38f5ef.jpg')
+          h1.
+            Physics of momentum scrolling
+
+        section
+          h2
+            p
+              span.
+                Alexey Komov, EPAM
+            p
+              a(href='http://alexeykomov.me').
+                http://alexeykomov.me
+          //img(src='img/qr-code.gif', alt='QR code for alexeykomov.me', style='display:inline-block')
+          img(src='img/picture-large.jpg', alt='Alexey K')
+
+        section
+          h1
+            span.
+              The '
+            i.
+             why?
+            span.
+              '
+          h3.
+            Native scrolling has a problem
+
+        section
+          h3.
+            Sometimes you drag the whole screen
+          video(data-autoplay='true')
+            source(data-src='video/ios-scrolling-overscroll.mp4', type='video/mp4')
+            source(data-src='video/ios-scrolling-overscroll.webm', type='video/webm')
+
+        section
+          h1.
+            Is it worth it to fix?
+
+        section
+          h1.
+            Uncanny valley of UI
+          img(src='img/Mori_Uncanny_Valley.svg',
+              alt='General explanation of uncanny valley',
+              class='stretch white-background')
+
+        section
+          h1.
+            Solutions?
+          h3
+            div.
+              They come down to "write your own scroll"...
+            div.
+              or - find already working implementation
+
+        section
+          h1.
+            Gmail for iOS web
+          h3
+            a(href='https://web.archive.org/web/20141001100814/https://developers.google.com/mobile/articles/webapp_fixed_ui#bg').
+              Here's
+            span.
+              an old article by Ryan Fioravanti
+
+        section
+          h3.
+            The heart of logic
+          pre.stretch
+            code.javascript.
+              doMomentum() {
+                const velocity = this.getEndVelocity();
+                const acceleration = this.getAcceleration(velocity);
+                const displacement = - (velocity * velocity) / (2 * acceleration);
+                const time = - velocity / acceleration;
+                const newY = this.contentOffsetY + displacement;
+
+                const transition =
+                    `${rflect.browser.css.getSelectorCasedProperty('transform')
+                    } ${time}ms cubic-bezier(0.33, 0.66, 0.66, 1)`;
+
+                rflect.browser.css.setTransition(this.element, transition);
+                rflect.browser.css.setTransform(this.element,
+                    `translate3d(0, ${newY}px, 0)`);
+                this.contentOffsetY = newY;
+
+                this.isDecelerating_ = true;
+              }
+
+        section
+          h3.
+            Natural deceleration
+          pre
+            code.javascript.
+              cubic-bezier(.33, .66, .66, 1)
+          img(src='img/bezier1.png', alt='Natural deceleration function',
+              class='white-background')
+
+        section
+          h3.
+            Natural deceleration - in motion
+          video(data-autoplay='true')
+            source(data-src='video/deceleration1.mp4', type='video/mp4')
+            source(data-src='video/deceleration1.webm', type='video/webm')
+
+        section
+          h3.
+            What if we're past the bounds?
+          pre
+            code.javascript.
+              cubic-bezier(0, 0, .58, 1), ease-out
+          img(src='img/bezier2.png', alt='Ease out function',
+              class='white-background')
+
+        section
+          h3.
+            What if we're past the bounds - in motion
+          video(data-autoplay='true')
+            source(data-src='video/deceleration2.mp4', type='video/mp4')
+            source(data-src='video/deceleration2.webm', type='video/webm')
+
+        section
+          h3.
+            What if we hit the bounds?
+          pre.stretch
+            code.javascript.
+              rflect.ui.MomentumScroller.prototype.doMomentum = function() {
+                var velocity = this.getEndVelocity();
+                var acceleration = this.getAcceleration(velocity);
+                var displacement = - (velocity * velocity) / (2 * acceleration);
+                var time = - velocity / acceleration;
+
+                var newY = this.contentOffsetY + displacement;
+
+                if (this.positionIsOutOfBounds(newY)) {
+
+                  this.setUpTransitionStage1();
+
+                } else {
+
+                  // In previous example.
+
+                }
+
+                this.isDecelerating_ = true;
+
+              }
+
+
+        section
+          h3.
+            The result
+          video(data-autoplay='true')
+            source(data-src='video/comparison-native.mp4', type='video/mp4')
+            source(data-src='video/comparison-native.webm', type='video/webm')
+          video(data-autoplay='true')
+            source(data-src='video/comparison-artificial.mp4', type='video/mp4')
+            source(data-src='video/comparison-artificial.webm', type='video/webm')
+
+        section
+          h1.
+            Presentation is here
+          img(src='img/qr-code-presentation.gif', alt='presentation QR code', class='stretch')
+
+        section
+          h1.
+            Contacts
+          img(src='img/qr-code-homesite.gif', alt='Home site QR code', class='stretch')
+          p
+            a(href='http://alexeykomov.me').
+              http://alexeykomov.me
+          p
+            a(href='alexeykcontact@gmail.com').
+              alexeykcontact@gmail.com
+
+        section
+          h1.
+            Credits
+          ul
+            li
+              span.
+                Ryan Fioravanti (
+              a(href='https://twitter.com/rjfioravanti').
+                @rjfioravanti
+              span.
+                ) - for Gmail scrolling
+            li
+              a(href='https://github.com/hakimel/reveal.js').
+                Reveal.js&nbsp;
+              span.
+                - for presentation engine
+            li
+              span.
+                Lea Verou - for&nbsp;
+              a(href='http://cubic-bezier.com/#.17,.67,.83,.67').
+                cubic-bezier.com
+            li
+              a(href='http://unsplash.com').
+                Unsplash.com
+              span.
+                - for gorgeous photos
+
+        section(data-background='img/photo-1433360405326-e50f909805b3.jpg')
+          h1.
+            Thx for your attention
+
+    script(src='lib/js/head.min.js')
+    script(src='js/reveal.js')
+
+    script.
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        history: true,
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          //{ src: 'plugin/markdown/marked.js' },
+          //{ src: 'plugin/markdown/markdown.js' },
+          //{ src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
