@@ -87,7 +87,7 @@
 
   const transition =
       `${rflect.browser.css.getSelectorCasedProperty('transform')
-      } ${time} ms cubic-bezier(0.33, 0.66, 0.66, 1)`;
+      } ${time}ms cubic-bezier(0.33, 0.66, 0.66, 1)`;
 
   rflect.browser.css.setTransition(this.element, transition);
   rflect.browser.css.setTransform(this.element,
@@ -98,6 +98,20 @@
 }
 </code></pre>
         </section>
+        <section>
+          <h3>Movement with constant acceleration (deceleration)</h3>
+          <p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>&#x000A0;</mo><mo>=</mo><mo>&#x000A0;</mo><msub><mi>v</mi><mn>0</mn></msub><mo>&#x000A0;</mo><mo>+</mo><mo>&#x02009;</mo><mi>a</mi><mi>t</mi><mspace linebreak="newline"/></math></p>
+          <p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>&#x000A0;</mo><mo>=</mo><mo>&#x000A0;</mo><msub><mi>x</mi><mn>0</mn></msub><mo>&#x000A0;</mo><mo>+</mo><mo>&#x000A0;</mo><msub><mi>v</mi><mn>0</mn></msub><mi>t</mi><mo>&#x000A0;</mo><mo>+</mo><mo>&#x02009;</mo><mfrac><mrow><mi>a</mi><msup><mi>t</mi><mn>2</mn></msup></mrow><mn>2</mn></mfrac></math></p>
+          <p>
+            <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>&#x00394;</mi><mi>x</mi><mo>=</mo><mfrac><mrow><msup><mi>v</mi><mn>2</mn></msup><mo>-</mo><msup><msub><mi>v</mi><mn>0</mn></msub><mn>2</mn></msup></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mspace linebreak="newline"/></math>
+            
+          </p>
+        </section>
+        <!--section
+        //h3.
+          //And displacement?
+        
+        -->
         <section>
           <h3>Natural deceleration</h3>
           <pre><code class="javascript">cubic-bezier(.33, .66, .66, 1)</code></pre><img src="img/bezier1.png" alt="Natural deceleration function" class="white-background">
