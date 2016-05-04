@@ -145,6 +145,25 @@ html(lang='en')
         section
           h3.
             What if we're past the bounds?
+          pre.stretch
+            code.javascript.
+              snapToBounds() {
+                const transition = rflect.browser.css.getSelectorCasedProperty('transform') +
+                  ' ' + 500 + 'ms ease-out';
+                this.setTransitionAll(transition);
+                if (this.contentOffsetY > 0) {
+                  this.contentOffsetY = 0;
+                } else {
+                  this.contentOffsetY = this.getLowestContentPosition();
+                }
+                rflect.browser.css.setTransform(this.element,
+                    `translate3d(0, ${this.contentOffsetY}px, 0)`);
+                this.isDecelerating_ = true;
+              }
+
+        section
+          h3.
+            Snap to bounds
           pre
             code.javascript.
               cubic-bezier(0, 0, .58, 1), ease-out
@@ -160,31 +179,49 @@ html(lang='en')
 
         section
           h3.
-            What if we hit the bounds?
+            What if we hit the bounds - the most complex case
+          h4.
+            Three stages
+          ul
+            li.text-blue.
+              To the bounds
+            li.text-red.
+              Decelerating past the bounds
+            li.text-green.
+              Snapping to bounds
+
+        section
+          h3.
+            Let's visualize
+          video(data-autoplay='true')
+            source(data-src='video/stages3.mp4', type='video/mp4')
+            source(data-src='video/stages3.webm', type='video/webm')
+
+        section
+          h3.
+            Code for the first part
           pre.stretch
             code.javascript.
-              rflect.ui.MomentumScroller.prototype.doMomentum = function() {
-                var velocity = this.getEndVelocity();
-                var acceleration = this.getAcceleration(velocity);
-                var displacement = - (velocity * velocity) / (2 * acceleration);
-                var time = - velocity / acceleration;
+              setUpTransitionStage1() {
 
-                var newY = this.contentOffsetY + displacement;
+                //...
 
-                if (this.positionIsOutOfBounds(newY)) {
+                const time = Math.abs((velocity - this.endMomentumVelocity_) / acceleration);
 
-                  this.setUpTransitionStage1();
+                const valueToLowerCubicBezierWith = Math.abs(this.endMomentumVelocity_ /
+                    velocity) * .33;
 
-                } else {
-
-                  // In previous example.
-
-                }
-
-                this.isDecelerating_ = true;
-
+                const transition =
+                    rflect.browser.css.getSelectorCasedProperty('transform') + ' ' + time +
+                    'ms cubic-bezier(.33,' +
+                    (.66 - valueToLowerCubicBezierWith) +
+                    ',.66,' +
+                    (1 - valueToLowerCubicBezierWith) +
+                    ')'
+                rflect.browser.css.setTransition(this.element, transition);
+                rflect.browser.css.setTransform(this.element,
+                    `translate3d(0, ${this.contentOffsetY}px, 0)`);
               }
-
 
         section
           h3.
