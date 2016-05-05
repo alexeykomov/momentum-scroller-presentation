@@ -183,11 +183,12 @@
         <section>
           <h3>Code for the first part</h3>
           <pre class="stretch"><code class="javascript">setUpTransitionStage1() {
-
-  //...
-
-  const time = Math.abs((velocity - this.endMomentumVelocity_) / acceleration);
-
+  /*
+   * ...
+   * Here we calculate time, calculate and set
+   * this.endMomentumVelocity_ and this.contentOffsetY
+   * ...
+   */
   const valueToLowerCubicBezierWith = Math.abs(this.endMomentumVelocity_ /
       velocity) * .33;
 
@@ -203,6 +204,15 @@
       `translate3d(0, ${this.contentOffsetY}px, 0)`);
 }
 </code></pre>
+        </section>
+        <section>
+          <h3>Some formulas</h3>
+          <p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi><mo>=</mo><msqrt><msup><msub><mi>v</mi><mn>0</mn></msub><mn>2</mn></msup><mo>-</mo><mn>2</mn><mi>a</mi><mo>&#x02206;</mo><mi>x</mi></msqrt></math></p>
+          <p>
+            <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>=</mo><mfrac><mrow><mi>v</mi><mo>-</mo><msub><mi>v</mi><mn>0</mn></msub></mrow><mi>a</mi></mfrac></math>
+            
+            
+          </p>
         </section>
         <section>
           <h3>Custom bezier curve depending on end velocity</h3><img src="img/flatten1.png" alt="Flatness degree 1" class="white-background"><img src="img/flatten2.png" alt="Flatness degree 2" class="white-background"><img src="img/flatten3.png" alt="Flatness degree 3" class="white-background">
@@ -226,6 +236,9 @@
           </video>
         </section>
         <section>
+          <h1>Demo is here</h1><img src="img/qr-code-demo.gif" alt="demo QR code" class="stretch">
+        </section>
+        <section>
           <h3>It's open-sourced</h3>
           <pre><code class="bash">npm install momentum-scroller</code></pre>
           <p><span>Send pull requests to</span><a href="https://github.com/alexeykomov/momentum-scroller">
@@ -243,12 +256,13 @@
               </a></p>
         </section>
         <section>
-          <h1>Credits</h1>
+          <h1>Wanna thank</h1>
           <ul>
             <li><span>Ryan Fioravanti (</span><a href="https://twitter.com/rjfioravanti">@rjfioravanti</a><span>) - for Gmail scrolling</span></li>
             <li><a href="https://github.com/hakimel/reveal.js">Reveal.js&nbsp;</a><span>- for presentation engine</span></li>
             <li><span>Lea Verou - for&nbsp;</span><a href="http://cubic-bezier.com/#.17,.67,.83,.67">cubic-bezier.com</a></li>
             <li><a href="http://www.wiris.com/editor/demo/ru/mathml-latex">Wiris</a><span>&nbsp;for a MathML editor</span></li>
+            <li><a href="http://qrcoder.ru">qrcoder.ru</a><span>for QR codes</span></li>
             <li><a href="http://unsplash.com">Unsplash.com</a><span>
                 - for gorgeous photos
                 </span></li>

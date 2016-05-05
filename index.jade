@@ -213,11 +213,12 @@ html(lang='en')
           pre.stretch
             code.javascript.
               setUpTransitionStage1() {
-
-                //...
-
-                const time = Math.abs((velocity - this.endMomentumVelocity_) / acceleration);
-
+                /*
+                 * ...
+                 * Here we calculate time, calculate and set
+                 * this.endMomentumVelocity_ and this.contentOffsetY
+                 * ...
+                 */
                 const valueToLowerCubicBezierWith = Math.abs(this.endMomentumVelocity_ /
                     velocity) * .33;
 
@@ -232,6 +233,15 @@ html(lang='en')
                 rflect.browser.css.setTransform(this.element,
                     `translate3d(0, ${this.contentOffsetY}px, 0)`);
               }
+
+        section
+          h3.
+            Some formulas
+          p.
+            <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi><mo>=</mo><msqrt><msup><msub><mi>v</mi><mn>0</mn></msub><mn>2</mn></msup><mo>-</mo><mn>2</mn><mi>a</mi><mo>&#x02206;</mo><mi>x</mi></msqrt></math>
+          p.
+            <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>=</mo><mfrac><mrow><mi>v</mi><mo>-</mo><msub><mi>v</mi><mn>0</mn></msub></mrow><mi>a</mi></mfrac></math>
+
 
         section
           h3.
@@ -256,6 +266,11 @@ html(lang='en')
           video(data-autoplay='true')
             source(data-src='video/comparison-artificial.mp4', type='video/mp4')
             source(data-src='video/comparison-artificial.webm', type='video/webm')
+
+        section
+          h1.
+            Demo is here
+          img(src='img/qr-code-demo.gif', alt='demo QR code', class='stretch')
 
         section
           h3.
@@ -287,7 +302,7 @@ html(lang='en')
 
         section
           h1.
-            Credits
+            Wanna thank
           ul
             li
               span.
@@ -311,6 +326,11 @@ html(lang='en')
                 Wiris
               span.
                 &nbsp;for a MathML editor
+            li
+              a(href='http://qrcoder.ru').
+                qrcoder.ru
+              span.
+                for QR codes
             li
               a(href='http://unsplash.com').
                 Unsplash.com
