@@ -88,6 +88,13 @@ html(lang='en')
 
         section
           h3.
+            Natural deceleration - in motion
+          video(data-autoplay='true')
+            source(data-src='video/deceleration1.mp4', type='video/mp4')
+            source(data-src='video/deceleration1.webm', type='video/webm')
+
+        section
+          h3.
             The heart of logic
           pre.stretch
             code.javascript.
@@ -122,10 +129,6 @@ html(lang='en')
           p.
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>&#x00394;</mi><mi>x</mi><mo>=</mo><mfrac><mrow><msup><mi>v</mi><mn>2</mn></msup><mo>-</mo><msup><msub><mi>v</mi><mn>0</mn></msub><mn>2</mn></msup></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mspace linebreak="newline"/></math>
 
-        //section
-          //h3.
-            //And displacement?
-
         section
           h3.
             Natural deceleration
@@ -141,6 +144,13 @@ html(lang='en')
           video(data-autoplay='true')
             source(data-src='video/deceleration1.mp4', type='video/mp4')
             source(data-src='video/deceleration1.webm', type='video/webm')
+
+        section
+          h3.
+            What if we're past the bounds - in motion
+          video(data-autoplay='true')
+            source(data-src='video/deceleration2.mp4', type='video/mp4')
+            source(data-src='video/deceleration2.webm', type='video/webm')
 
         section
           h3.
@@ -232,6 +242,13 @@ html(lang='en')
 
         section
           h3.
+            Let's visualize
+          video(data-autoplay='true')
+            source(data-src='video/stages3.mp4', type='video/mp4')
+            source(data-src='video/stages3.webm', type='video/webm')
+
+        section
+          h3.
             The result
           video(data-autoplay='true')
             source(data-src='video/comparison-native.mp4', type='video/mp4')
@@ -239,6 +256,18 @@ html(lang='en')
           video(data-autoplay='true')
             source(data-src='video/comparison-artificial.mp4', type='video/mp4')
             source(data-src='video/comparison-artificial.webm', type='video/webm')
+
+        section
+          h3.
+            It's open-sourced
+          pre
+            code.bash.
+              npm install momentum-scroller
+          p
+            span.
+              Send pull requests to
+            a(href='https://github.com/alexeykomov/momentum-scroller').
+              https://github.com/alexeykomov/momentum-scroller
 
         section
           h1.
