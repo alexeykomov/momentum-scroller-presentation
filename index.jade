@@ -62,12 +62,15 @@ html(lang='en')
         section
           h1.
             History
-          p.
-            iOS 5
-          p.
-            -webkit-overflow-scrolling: touch
-          p.
-            we can leave artificial scrollers behind
+          h2.
+            When did native implementations appear?
+          div.fragment(data-fragment-index=0)
+            p.
+              iOS 5
+            p.
+              -webkit-overflow-scrolling: touch
+            p.
+              we can leave artificial scrollers behind
 
         section
           h2.
@@ -134,16 +137,16 @@ html(lang='en')
         section
           h3.
             And in physics?
-          p.
+          p(class='fragment', data-fragment-index=0).
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi><mo>&#x000A0;</mo><mo>=</mo><mo>&#x000A0;</mo><msub><mi>v</mi><mn>0</mn></msub><mo>&#x000A0;</mo><mo>+</mo><mo>&#x02009;</mo><mi>a</mi><mi>t</mi><mspace linebreak="newline"/></math>
-          p.
+          p(class='fragment', data-fragment-index=1).
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi><mo>&#x000A0;</mo><mo>=</mo><mo>&#x000A0;</mo><msub><mi>x</mi><mn>0</mn></msub><mo>&#x000A0;</mo><mo>+</mo><mo>&#x000A0;</mo><msub><mi>v</mi><mn>0</mn></msub><mi>t</mi><mo>&#x000A0;</mo><mo>+</mo><mo>&#x02009;</mo><mfrac><mrow><mi>a</mi><msup><mi>t</mi><mn>2</mn></msup></mrow><mn>2</mn></mfrac></math>
 
         section
           h3.
             Let's see some code
           pre.stretch
-            code(class='javascript', style='font-size: 1.6em').
+            code.javascript.code.
               doMomentum() {
                 const transition =
                     `transform ${time
@@ -160,18 +163,18 @@ html(lang='en')
             Three "T"s
           h2
             ul
-              li.
+              li(class='fragment', data-fragment-index=0).
                 Transform
-              li.
+              li(class='fragment', data-fragment-index=1).
                 Translate
-              li.
+              li(class='fragment', data-fragment-index=2).
                 Transition
 
         section
           h3.
             Code
           pre.stretch
-            code(class='javascript', style='font-size: 1.6em').
+            code.javascript.code.
               doMomentum() {
                 const transition =
                     `transform ${time
@@ -186,22 +189,22 @@ html(lang='en')
         section
           h3.
             What about time and Δx?
-          p.
+          p(class='fragment', data-fragment-index=0).
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>=</mo><mfrac><mrow><mi>v</mi><mo>-</mo><msub><mi>v</mi><mn>0</mn></msub></mrow><mi>a</mi></mfrac></math>
-          p.
+          p(class='fragment', data-fragment-index=1).
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>&#x00394;</mi><mi>x</mi><mo>=</mo><mfrac><mrow><msup><mi>v</mi><mn>2</mn></msup><mo>-</mo><msup><msub><mi>v</mi><mn>0</mn></msub><mn>2</mn></msup></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mspace linebreak="newline"/></math>
 
         section
           h3.
             And acceleration (well... it's deceleration)?
-          p.
+          p.fragment(data-fragment-index=0).
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>&#xA0;</mo><mo>=</mo><mn>0</mn><mo>.</mo><mn>005</mn><mfrac bevelled="true"><mrow><mi>p</mi><mi>x</mi></mrow><msup><mi>ms</mi><mn>2</mn></msup></mfrac></math>
 
         section
           h3.
             Code
           pre.stretch
-            code(class='javascript', style='font-size: 1.6em').
+            code.javascript.code.
               doMomentum() {
                 const transition =
                     `transform ${time
@@ -246,15 +249,15 @@ html(lang='en')
           h3.
             What if we're past the bounds?
           pre.stretch
-            code(class='javascript', style='font-size: 1.6em').
+            code.javascript.code.
               snapToBounds() {
                 const transition = 'transform' +
                   '500ms ease-out';
-                this.setTransition(transition);
+                this.setTransition(this.element,
+                    transition);
 
                 this.setTransform(this.element,
-                    `translate3d(0, ${startY
-                    }px, 0)`);
+                    `translate3d(0, ${startY}px, 0)`);
               }
 
         section
@@ -290,28 +293,28 @@ html(lang='en')
           h3.
             Code for the first part
           pre.stretch
-            code(class='javascript', style='font-size: 1.6em').
-              setUpTransitionStage1() {
+            code.javascript.code.
                 const valueToLowerCubicBezierWith =
                     Math.abs(this.endMomentumVelocity_ /
                     velocity) * .33;
 
                 const transition =
-                    'transform time' +
-                    'ms cubic-bezier(.33,' +
-                    (.66 - valueToLowerCubicBezierWith) +
-                    ',.66,' +
-                    (1 - valueToLowerCubicBezierWith) +
-                    ')'
+                    `transform ${time}ms cubic-bezier(.33,${
+                    (.66 - valueToLowerCubicBezierWith)
+                    },.66,${
+                    (1 - valueToLowerCubicBezierWith)})`
 
                 this.setTransition(this.element, transition);
                 this.setTransform(this.element,
-                    `translate3d(0, ${this.contentOffsetY}px, 0)`);
-              }
+                    `translate3d(0, ${this.contentOffsetY
+                    }px, 0)`);
 
         section
-          h3.
-            Some formulas
+          h3
+            div.
+              What about speed when crossing bounds?
+            div.
+              And time?
           p.
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi><mo>=</mo><msqrt><msup><msub><mi>v</mi><mn>0</mn></msub><mn>2</mn></msup><mo>-</mo><mn>2</mn><mi>a</mi><mo>&#x02206;</mo><mi>x</mi></msqrt></math>
           p.

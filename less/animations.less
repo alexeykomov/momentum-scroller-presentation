@@ -23,9 +23,9 @@
   animation: bounce-appearance 10000ms ease-in-out infinite;
 }
 
-.rigid-body, .rigid-body-light {
+.rigid-body {
   position: absolute;
-  left: 0%;
+  left: -25px;
   width: 50px;
   height: 50px;
   background: #000;
@@ -34,7 +34,11 @@
   z-index: 10000;
 }
 
+.rigid-body-light {
+}
+
 .rigid-body-heavy {
+  left: -75px;
   width: 150px;
   height: 150px;
 }

@@ -59,12 +59,15 @@
         </section>
         <section>
           <h1>History</h1>
-          <p>iOS 5</p>
-          <p>-webkit-overflow-scrolling: touch</p>
-          <p>
-            we can leave artificial scrollers behind
-            
-          </p>
+          <h2>When did native implementations appear?</h2>
+          <div data-fragment-index='0' class="fragment">
+            <p>iOS 5</p>
+            <p>-webkit-overflow-scrolling: touch</p>
+            <p>
+              we can leave artificial scrollers behind
+              
+            </p>
+          </div>
         </section>
         <section>
           <h2>
@@ -138,15 +141,15 @@
         </section>
         <section>
           <h3>And in physics?</h3>
-          <p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi><mo>&#x000A0;</mo><mo>=</mo><mo>&#x000A0;</mo><msub><mi>v</mi><mn>0</mn></msub><mo>&#x000A0;</mo><mo>+</mo><mo>&#x02009;</mo><mi>a</mi><mi>t</mi><mspace linebreak="newline"/></math></p>
-          <p>
+          <p data-fragment-index='0' class="fragment"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi><mo>&#x000A0;</mo><mo>=</mo><mo>&#x000A0;</mo><msub><mi>v</mi><mn>0</mn></msub><mo>&#x000A0;</mo><mo>+</mo><mo>&#x02009;</mo><mi>a</mi><mi>t</mi><mspace linebreak="newline"/></math></p>
+          <p data-fragment-index='1' class="fragment">
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi><mo>&#x000A0;</mo><mo>=</mo><mo>&#x000A0;</mo><msub><mi>x</mi><mn>0</mn></msub><mo>&#x000A0;</mo><mo>+</mo><mo>&#x000A0;</mo><msub><mi>v</mi><mn>0</mn></msub><mi>t</mi><mo>&#x000A0;</mo><mo>+</mo><mo>&#x02009;</mo><mfrac><mrow><mi>a</mi><msup><mi>t</mi><mn>2</mn></msup></mrow><mn>2</mn></mfrac></math>
             
           </p>
         </section>
         <section>
           <h3>Let's see some code</h3>
-          <pre class="stretch"><code style="font-size: 1.6em" class="javascript">doMomentum() {
+          <pre class="stretch"><code class="javascript code">doMomentum() {
   const transition =
       `transform ${time
       }ms cubic-bezier(0.33, 0.66, 0.66, 1)`;
@@ -162,9 +165,9 @@
           <h1>Three "T"s</h1>
           <h2>
             <ul>
-              <li>Transform</li>
-              <li>Translate</li>
-              <li>
+              <li data-fragment-index='0' class="fragment">Transform</li>
+              <li data-fragment-index='1' class="fragment">Translate</li>
+              <li data-fragment-index='2' class="fragment">
                 Transition
                 
               </li>
@@ -173,7 +176,7 @@
         </section>
         <section>
           <h3>Code</h3>
-          <pre class="stretch"><code style="font-size: 1.6em" class="javascript">doMomentum() {
+          <pre class="stretch"><code class="javascript code">doMomentum() {
   const transition =
       `transform ${time
       }ms cubic-bezier(0.33, 0.66, 0.66, 1)`;
@@ -187,22 +190,22 @@
         </section>
         <section>
           <h3>What about time and Δx?</h3>
-          <p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>=</mo><mfrac><mrow><mi>v</mi><mo>-</mo><msub><mi>v</mi><mn>0</mn></msub></mrow><mi>a</mi></mfrac></math></p>
-          <p>
+          <p data-fragment-index='0' class="fragment"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>=</mo><mfrac><mrow><mi>v</mi><mo>-</mo><msub><mi>v</mi><mn>0</mn></msub></mrow><mi>a</mi></mfrac></math></p>
+          <p data-fragment-index='1' class="fragment">
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>&#x00394;</mi><mi>x</mi><mo>=</mo><mfrac><mrow><msup><mi>v</mi><mn>2</mn></msup><mo>-</mo><msup><msub><mi>v</mi><mn>0</mn></msub><mn>2</mn></msup></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mspace linebreak="newline"/></math>
             
           </p>
         </section>
         <section>
           <h3>And acceleration (well... it's deceleration)?</h3>
-          <p>
+          <p data-fragment-index='0' class="fragment">
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>&#xA0;</mo><mo>=</mo><mn>0</mn><mo>.</mo><mn>005</mn><mfrac bevelled="true"><mrow><mi>p</mi><mi>x</mi></mrow><msup><mi>ms</mi><mn>2</mn></msup></mfrac></math>
             
           </p>
         </section>
         <section>
           <h3>Code</h3>
-          <pre class="stretch"><code style="font-size: 1.6em" class="javascript">doMomentum() {
+          <pre class="stretch"><code class="javascript code">doMomentum() {
   const transition =
       `transform ${time
       }ms cubic-bezier(0.33, 0.66, 0.66, 1)`;
@@ -241,14 +244,14 @@
         </section>
         <section>
           <h3>What if we're past the bounds?</h3>
-          <pre class="stretch"><code style="font-size: 1.6em" class="javascript">snapToBounds() {
+          <pre class="stretch"><code class="javascript code">snapToBounds() {
   const transition = 'transform' +
     '500ms ease-out';
-  this.setTransition(transition);
+  this.setTransition(this.element,
+      transition);
 
   this.setTransform(this.element,
-      `translate3d(0, ${startY
-      }px, 0)`);
+      `translate3d(0, ${startY}px, 0)`);
 }
 </code></pre>
         </section>
@@ -279,27 +282,27 @@
         </section>
         <section>
           <h3>Code for the first part</h3>
-          <pre class="stretch"><code style="font-size: 1.6em" class="javascript">setUpTransitionStage1() {
-  const valueToLowerCubicBezierWith =
-      Math.abs(this.endMomentumVelocity_ /
-      velocity) * .33;
+          <pre class="stretch"><code class="javascript code">const valueToLowerCubicBezierWith =
+    Math.abs(this.endMomentumVelocity_ /
+    velocity) * .33;
 
-  const transition =
-      'transform time' +
-      'ms cubic-bezier(.33,' +
-      (.66 - valueToLowerCubicBezierWith) +
-      ',.66,' +
-      (1 - valueToLowerCubicBezierWith) +
-      ')'
+const transition =
+    `transform ${time}ms cubic-bezier(.33,${
+    (.66 - valueToLowerCubicBezierWith)
+    },.66,${
+    (1 - valueToLowerCubicBezierWith)})`
 
-  this.setTransition(this.element, transition);
-  this.setTransform(this.element,
-      `translate3d(0, ${this.contentOffsetY}px, 0)`);
-}
+this.setTransition(this.element, transition);
+this.setTransform(this.element,
+    `translate3d(0, ${this.contentOffsetY
+    }px, 0)`);
 </code></pre>
         </section>
         <section>
-          <h3>Some formulas</h3>
+          <h3>
+            <div>What about speed when crossing bounds?</div>
+            <div>And time?</div>
+          </h3>
           <p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi><mo>=</mo><msqrt><msup><msub><mi>v</mi><mn>0</mn></msub><mn>2</mn></msup><mo>-</mo><mn>2</mn><mi>a</mi><mo>&#x02206;</mo><mi>x</mi></msqrt></math></p>
           <p>
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>=</mo><mfrac><mrow><mi>v</mi><mo>-</mo><msub><mi>v</mi><mn>0</mn></msub></mrow><mi>a</mi></mfrac></math>
@@ -384,9 +387,6 @@
             Thx for your attention
             
           </h1>
-        </section>
-        <section>
-          <h1>Uncanny valley of UI</h1><img src="img/Mori_Uncanny_Valley.svg" alt="General explanation of uncanny valley" class="stretch white-background">
         </section>
       </div>
     </div>
