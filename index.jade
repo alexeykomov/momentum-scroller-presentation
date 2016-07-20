@@ -27,17 +27,13 @@ html(lang='en')
         section
           h1.
             Physics of momentum scrolling
-
-        section
-          h2
+          h3
             p
               span.
                 Alexey, EPAM
             p
               a(href='http://alexeykomov.me').
                 http://alexeykomov.me
-          //img(src='img/qr-code.gif', alt='QR code for alexeykomov.me', style='display:inline-block')
-          img(src='img/picture-large.jpg', alt='Alexey K')
 
         section
           h1.
@@ -55,9 +51,13 @@ html(lang='en')
           p.
             First law of motion
 
-        section.
+        section
           h1.
             Bodies with different mass
+          p.bezier-cont.bezier-cont-light
+            i.rigid-body.rigid-body-light
+          p.bezier-cont.bezier-cont-heavy
+            i.rigid-body.rigid-body-heavy
 
         section
           h1.
@@ -216,6 +216,8 @@ html(lang='en')
         section
           h3.
             Natural deceleration
+          p.bezier-cont.bezier-cont1
+            i.rigid-body
           pre
             code.javascript.
               cubic-bezier(.33, .66, .66, 1)
@@ -258,6 +260,8 @@ html(lang='en')
         section
           h3.
             Snap to bounds
+          p.bezier-cont.bezier-cont2
+            i.rigid-body
           pre
             code.javascript.
               cubic-bezier(0, 0, .58, 1), ease-out
