@@ -8,10 +8,10 @@ html(lang='en')
       Physics of momentum scrolling - presentation
 
     link(rel='stylesheet', href='css/reveal.css')
-    link(rel='stylesheet', href='css/theme/black.css')
+    link(rel='stylesheet', href='css/theme/white.css')
     link(rel='stylesheet', href='css/all.css')
     //Theme used for syntax highlighting of code.
-    link(rel='stylesheet', href='lib/css/zenburn.css')
+    link(rel='stylesheet', href='lib/css/xcode.css')
 
     //Printing and PDF exports..
     script.
@@ -24,7 +24,7 @@ html(lang='en')
     div.reveal
       div.slides
 
-        section(data-background='img/photo-1458724029936-2cc6ee38f5ef.jpg')
+        section
           h1.
             Physics of momentum scrolling
 
@@ -32,7 +32,7 @@ html(lang='en')
           h2
             p
               span.
-                Alexey Komov, EPAM
+                Alexey, EPAM
             p
               a(href='http://alexeykomov.me').
                 http://alexeykomov.me
@@ -40,94 +40,178 @@ html(lang='en')
           img(src='img/picture-large.jpg', alt='Alexey K')
 
         section
-          h1
-            span.
-              The '
-            i.
-             why?
-            span.
-              '
+          h1.
+            I will speak of
+          h2
+            ul
+              li.
+                GMail for iOS web app algo
+              li.
+                How it can be useful
+
+        section
+          h1.
+            Inertia
+          p.
+            First law of motion
+
+        section.
+          h1.
+            Bodies with different mass
+
+        section
+          h1.
+            History
+          p.
+            iOS 5
+          p.
+            -webkit-overflow-scrolling: touch
+          p.
+            we can leave artificial scrollers behind
+
+        section
+          h2.
+            ...can we?
+
+        section
           h3.
-            Native scrolling has a problem
+            The problem
+          video(loop='true', data-autoplay='true')
+            source(data-src='video/native-scroll-problem-hd.mp4', type='video/mp4')
+            source(data-src='video/native-scroll-problem.mp4', type='video/mp4')
 
         section
           h3.
-            Sometimes you drag the whole screen
-          video(data-autoplay='true')
-            source(data-src='video/ios-scrolling-overscroll.mp4', type='video/mp4')
-            source(data-src='video/ios-scrolling-overscroll.webm', type='video/webm')
+            Google's GMail solution
+          video(loop='true', data-autoplay='true')
+            source(data-src='video/gmail-scroll-hd.mp4', type='video/mp4')
+            source(data-src='video/gmail-scroll.mp4', type='video/mp4')
 
         section
           h1.
-            Is it worth it to fix?
+            How did they implemented this?
 
         section
           h1.
-            Uncanny valley of UI
-          img(src='img/Mori_Uncanny_Valley.svg',
-              alt='General explanation of uncanny valley',
-              class='stretch white-background')
+            We can find out by...
+          h2
+            ul
+              li
+                a(href='https://web.archive.org/web/20141001100814/https://developers.google.com/mobile/articles/webapp_fixed_ui#bg').
+                  Blog
+                span.
+                  &nbsp;post
+              li.
+                Looking into code
 
         section
           h1.
-            Solutions?
-          h3
-            div.
-              They come down to "write your own scroll"...
-            div.
-              or - find already working implementation
+            Three "T"s
+          h2
+            ul
+              li.
+                Transform
+              li.
+                Translate
+              li.
+                Transition
 
         section
           h1.
-            Gmail for iOS web
-          h3
-            a(href='https://web.archive.org/web/20141001100814/https://developers.google.com/mobile/articles/webapp_fixed_ui#bg').
-              Here's
-            span.
-              an old article by Ryan Fioravanti
+            Let's divide algo to three parts
+
+        section
+          h1.
+            Part 1 - deceleration
 
         section
           h3.
             Natural deceleration - in motion
-          video(data-autoplay='true')
-            source(data-src='video/deceleration1.mp4', type='video/mp4')
-            source(data-src='video/deceleration1.webm', type='video/webm')
+          video(loop='true', data-autoplay='true')
+            source(data-src='video/deceleration-hd.mp4', type='video/mp4')
+            source(data-src='video/deceleration.mp4', type='video/mp4')
 
         section
           h3.
-            The heart of logic
-          pre.stretch
-            code.javascript.
-              doMomentum() {
-                const velocity = this.getEndVelocity();
-                const acceleration = this.getAcceleration(velocity);
-                const displacement = - (velocity * velocity) / (2 * acceleration);
-                const time = - velocity / acceleration;
-                const newY = this.contentOffsetY + displacement;
-
-                const transition =
-                    `${rflect.browser.css.getSelectorCasedProperty('transform')
-                    } ${time}ms cubic-bezier(0.33, 0.66, 0.66, 1)`;
-
-                rflect.browser.css.setTransition(this.element, transition);
-                rflect.browser.css.setTransform(this.element,
-                    `translate3d(0, ${newY}px, 0)`);
-                this.contentOffsetY = newY;
-
-                this.isDecelerating_ = true;
-              }
-
-        section
-          h3.
-            Movement with constant acceleration (deceleration)
+            And in physics?
           p.
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi><mo>&#x000A0;</mo><mo>=</mo><mo>&#x000A0;</mo><msub><mi>v</mi><mn>0</mn></msub><mo>&#x000A0;</mo><mo>+</mo><mo>&#x02009;</mo><mi>a</mi><mi>t</mi><mspace linebreak="newline"/></math>
           p.
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi><mo>&#x000A0;</mo><mo>=</mo><mo>&#x000A0;</mo><msub><mi>x</mi><mn>0</mn></msub><mo>&#x000A0;</mo><mo>+</mo><mo>&#x000A0;</mo><msub><mi>v</mi><mn>0</mn></msub><mi>t</mi><mo>&#x000A0;</mo><mo>+</mo><mo>&#x02009;</mo><mfrac><mrow><mi>a</mi><msup><mi>t</mi><mn>2</mn></msup></mrow><mn>2</mn></mfrac></math>
+
+        section
+          h3.
+            Let's see some code
+          pre.stretch
+            code(class='javascript', style='font-size: 1.6em').
+              doMomentum() {
+                const transition =
+                    `transform ${time
+                    }ms cubic-bezier(0.33, 0.66, 0.66, 1)`;
+
+                this.setTransition(this.element, transition);
+
+                this.setTransform(this.element,
+                    `translate3d(0, ${newY}px, 0)`);
+              }
+
+        section
+          h1.
+            Three "T"s
+          h2
+            ul
+              li.
+                Transform
+              li.
+                Translate
+              li.
+                Transition
+
+        section
+          h3.
+            Code
+          pre.stretch
+            code(class='javascript', style='font-size: 1.6em').
+              doMomentum() {
+                const transition =
+                    `transform ${time
+                    }ms cubic-bezier(0.33, 0.66, 0.66, 1)`;
+
+                this.setTransition(this.element, transition);
+
+                this.setTransform(this.element,
+                    `translate3d(0, ${newY}px, 0)`);
+              }
+
+        section
+          h3.
+            What about time and Δx?
           p.
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>=</mo><mfrac><mrow><mi>v</mi><mo>-</mo><msub><mi>v</mi><mn>0</mn></msub></mrow><mi>a</mi></mfrac></math>
           p.
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>&#x00394;</mi><mi>x</mi><mo>=</mo><mfrac><mrow><msup><mi>v</mi><mn>2</mn></msup><mo>-</mo><msup><msub><mi>v</mi><mn>0</mn></msub><mn>2</mn></msup></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mspace linebreak="newline"/></math>
+
+        section
+          h3.
+            And acceleration (well... it's deceleration)?
+          p.
+            <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>&#xA0;</mo><mo>=</mo><mn>0</mn><mo>.</mo><mn>005</mn><mfrac bevelled="true"><mrow><mi>p</mi><mi>x</mi></mrow><msup><mi>ms</mi><mn>2</mn></msup></mfrac></math>
+
+        section
+          h3.
+            Code
+          pre.stretch
+            code(class='javascript', style='font-size: 1.6em').
+              doMomentum() {
+                const transition =
+                    `transform ${time
+                    }ms cubic-bezier(0.33, 0.66, 0.66, 1)`;
+
+                this.setTransition(this.element, transition);
+
+                this.setTransform(this.element,
+                    `translate3d(0, ${newY}px, 0)`);
+              }
 
         section
           h3.
@@ -141,34 +225,34 @@ html(lang='en')
         section
           h3.
             Natural deceleration - in motion
-          video(data-autoplay='true')
-            source(data-src='video/deceleration1.mp4', type='video/mp4')
-            source(data-src='video/deceleration1.webm', type='video/webm')
+          video(loop='true', data-autoplay='true')
+            source(data-src='video/deceleration-hd.mp4', type='video/mp4')
+            source(data-src='video/deceleration.mp4', type='video/mp4')
+
+        section
+          h1.
+            Part 2 - snap to bounds
 
         section
           h3.
-            What if we're past the bounds - in motion
-          video(data-autoplay='true')
-            source(data-src='video/deceleration2.mp4', type='video/mp4')
-            source(data-src='video/deceleration2.webm', type='video/webm')
+            Snapping to bounds
+          video(loop='true', data-autoplay='true')
+            source(data-src='video/snap-to-bounds-hd.mp4', type='video/mp4')
+            source(data-src='video/snap-to-bounds.mp4', type='video/mp4')
 
         section
           h3.
             What if we're past the bounds?
           pre.stretch
-            code.javascript.
+            code(class='javascript', style='font-size: 1.6em').
               snapToBounds() {
-                const transition = rflect.browser.css.getSelectorCasedProperty('transform') +
-                  ' ' + 500 + 'ms ease-out';
-                this.setTransitionAll(transition);
-                if (this.contentOffsetY > 0) {
-                  this.contentOffsetY = 0;
-                } else {
-                  this.contentOffsetY = this.getLowestContentPosition();
-                }
-                rflect.browser.css.setTransform(this.element,
-                    `translate3d(0, ${this.contentOffsetY}px, 0)`);
-                this.isDecelerating_ = true;
+                const transition = 'transform' +
+                  '500ms ease-out';
+                this.setTransition(transition);
+
+                this.setTransform(this.element,
+                    `translate3d(0, ${startY
+                    }px, 0)`);
               }
 
         section
@@ -182,55 +266,42 @@ html(lang='en')
 
         section
           h3.
-            What if we're past the bounds - in motion
-          video(data-autoplay='true')
-            source(data-src='video/deceleration2.mp4', type='video/mp4')
-            source(data-src='video/deceleration2.webm', type='video/webm')
+            Snapping to bounds
+          video(loop='true', data-autoplay='true')
+            source(data-src='video/snap-to-bounds-hd.mp4', type='video/mp4')
+            source(data-src='video/snap-to-bounds.mp4', type='video/mp4')
+
+        section
+          h1.
+            Part 3 - crossing the bounds
 
         section
           h3.
-            What if we hit the bounds - the most complex case
-          h4.
-            Three stages
-          ul
-            li.text-blue.
-              To the bounds
-            li.text-red.
-              Decelerating past the bounds
-            li.text-green.
-              Snapping to bounds
-
-        section
-          h3.
-            Let's visualize
-          video(data-autoplay='true')
-            source(data-src='video/stages3.mp4', type='video/mp4')
-            source(data-src='video/stages3.webm', type='video/webm')
+            Crossing the bounds
+          video(loop='true', data-autoplay='true')
+            source(data-src='video/three-stages-hd.mp4', type='video/mp4')
+            source(data-src='video/three-stages.mp4', type='video/mp4')
 
         section
           h3.
             Code for the first part
           pre.stretch
-            code.javascript.
+            code(class='javascript', style='font-size: 1.6em').
               setUpTransitionStage1() {
-                /*
-                 * ...
-                 * Here we calculate time, calculate and set
-                 * this.endMomentumVelocity_ and this.contentOffsetY
-                 * ...
-                 */
-                const valueToLowerCubicBezierWith = Math.abs(this.endMomentumVelocity_ /
+                const valueToLowerCubicBezierWith =
+                    Math.abs(this.endMomentumVelocity_ /
                     velocity) * .33;
 
                 const transition =
-                    rflect.browser.css.getSelectorCasedProperty('transform') + ' ' + time +
+                    'transform time' +
                     'ms cubic-bezier(.33,' +
                     (.66 - valueToLowerCubicBezierWith) +
                     ',.66,' +
                     (1 - valueToLowerCubicBezierWith) +
                     ')'
-                rflect.browser.css.setTransition(this.element, transition);
-                rflect.browser.css.setTransform(this.element,
+
+                this.setTransition(this.element, transition);
+                this.setTransform(this.element,
                     `translate3d(0, ${this.contentOffsetY}px, 0)`);
               }
 
@@ -242,7 +313,6 @@ html(lang='en')
           p.
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>=</mo><mfrac><mrow><mi>v</mi><mo>-</mo><msub><mi>v</mi><mn>0</mn></msub></mrow><mi>a</mi></mfrac></math>
 
-
         section
           h3.
             Custom bezier curve depending on end velocity
@@ -252,25 +322,38 @@ html(lang='en')
 
         section
           h3.
-            Let's visualize
-          video(data-autoplay='true')
-            source(data-src='video/stages3.mp4', type='video/mp4')
-            source(data-src='video/stages3.webm', type='video/webm')
+            Crossing the bounds
+          video(loop='true', data-autoplay='true')
+            source(data-src='video/three-stages-hd.mp4', type='video/mp4')
+            source(data-src='video/three-stages.mp4', type='video/mp4')
+
+        section
+          h1
+            div.
+              We understood Google's algorithm
+            div.
+              How can we use it?
 
         section
           h3.
-            The result
-          video(data-autoplay='true')
-            source(data-src='video/comparison-native.mp4', type='video/mp4')
-            source(data-src='video/comparison-native.webm', type='video/webm')
-          video(data-autoplay='true')
-            source(data-src='video/comparison-artificial.mp4', type='video/mp4')
-            source(data-src='video/comparison-artificial.webm', type='video/webm')
+            Solution
+          video(loop='true', data-autoplay='true')
+            source(data-src='video/artificial-scroll-hd.mp4', type='video/mp4')
+            source(data-src='video/artificial-scroll.mp4', type='video/mp4')
 
         section
-          h1.
-            Demo is here
-          img(src='img/qr-code-demo.gif', alt='demo QR code', class='stretch')
+          h3.
+            The problem
+          video(loop='true', data-autoplay='true')
+            source(data-src='video/native-scroll-problem-hd.mp4', type='video/mp4')
+            source(data-src='video/native-scroll-problem.mp4', type='video/mp4')
+
+        section
+          h3.
+            Solution
+          video(loop='true', data-autoplay='true')
+            source(data-src='video/artificial-scroll-hd.mp4', type='video/mp4')
+            source(data-src='video/artificial-scroll.mp4', type='video/mp4')
 
         section
           h3.
@@ -286,13 +369,17 @@ html(lang='en')
 
         section
           h1.
+            Demo is here
+          img(src='img/qr-code-demo.gif', alt='demo QR code', class='stretch')
+
+        section
+          h1.
             Presentation is here
           img(src='img/qr-code-presentation.gif', alt='presentation QR code', class='stretch')
 
         section
           h1.
             Contacts
-          img(src='img/qr-code-homesite.gif', alt='Home site QR code', class='stretch')
           p
             a(href='http://alexeykomov.me').
               http://alexeykomov.me
@@ -337,9 +424,17 @@ html(lang='en')
               span.
                 - for gorgeous photos
 
-        section(data-background='img/photo-1433360405326-e50f909805b3.jpg')
+        section
           h1.
             Thx for your attention
+
+        section
+          h1.
+            Uncanny valley of UI
+          img(src='img/Mori_Uncanny_Valley.svg',
+              alt='General explanation of uncanny valley',
+              class='stretch white-background')
+
 
     script(src='lib/js/head.min.js')
     script(src='js/reveal.min.js')

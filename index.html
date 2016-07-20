@@ -8,10 +8,10 @@
       
     </title>
     <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/black.css">
+    <link rel="stylesheet" href="css/theme/white.css">
     <link rel="stylesheet" href="css/all.css">
     <!--Theme used for syntax highlighting of code.-->
-    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="lib/css/xcode.css">
     <!--Printing and PDF exports..-->
     <script>
       var link = document.createElement( 'link' );
@@ -24,7 +24,7 @@
   <body>
     <div class="reveal">
       <div class="slides">
-        <section data-background="img/photo-1458724029936-2cc6ee38f5ef.jpg">
+        <section>
           <h1>
             Physics of momentum scrolling
             
@@ -32,83 +32,165 @@
         </section>
         <section>
           <h2>
-            <p><span>Alexey Komov, EPAM</span></p>
+            <p><span>Alexey, EPAM</span></p>
             <p><a href="http://alexeykomov.me">http://alexeykomov.me</a></p>
           </h2>
           <!--img(src='img/qr-code.gif', alt='QR code for alexeykomov.me', style='display:inline-block')--><img src="img/picture-large.jpg" alt="Alexey K">
         </section>
         <section>
-          <h1><span>The '</span><i>why?</i><span>'</span></h1>
-          <h3>
-            Native scrolling has a problem
-            
-          </h3>
+          <h1>I will speak of</h1>
+          <h2>
+            <ul>
+              <li>GMail for iOS web app algo</li>
+              <li>
+                How it can be useful
+                
+              </li>
+            </ul>
+          </h2>
         </section>
         <section>
-          <h3>Sometimes you drag the whole screen</h3>
-          <video data-autoplay="true">
-            <source data-src="video/ios-scrolling-overscroll.mp4" type="video/mp4">
-            <source data-src="video/ios-scrolling-overscroll.webm" type="video/webm">
+          <h1>Inertia</h1>
+          <p>
+            First law of motion
+            
+          </p>
+        </section>
+        <section>
+          h1.
+            Bodies with different mass
+          
+        </section>
+        <section>
+          <h1>History</h1>
+          <p>iOS 5</p>
+          <p>-webkit-overflow-scrolling: touch</p>
+          <p>
+            we can leave artificial scrollers behind
+            
+          </p>
+        </section>
+        <section>
+          <h2>
+            ...can we?
+            
+          </h2>
+        </section>
+        <section>
+          <h3>The problem</h3>
+          <video loop="true" data-autoplay="true">
+            <source data-src="video/native-scroll-problem-hd.mp4" type="video/mp4">
+            <source data-src="video/native-scroll-problem.mp4" type="video/mp4">
+          </video>
+        </section>
+        <section>
+          <h3>Google's GMail solution</h3>
+          <video loop="true" data-autoplay="true">
+            <source data-src="video/gmail-scroll-hd.mp4" type="video/mp4">
+            <source data-src="video/gmail-scroll.mp4" type="video/mp4">
           </video>
         </section>
         <section>
           <h1>
-            Is it worth it to fix?
+            How did they implemented this?
             
           </h1>
         </section>
         <section>
-          <h1>Uncanny valley of UI</h1><img src="img/Mori_Uncanny_Valley.svg" alt="General explanation of uncanny valley" class="stretch white-background">
+          <h1>We can find out by...</h1>
+          <h2>
+            <ul>
+              <li><a href="https://web.archive.org/web/20141001100814/https://developers.google.com/mobile/articles/webapp_fixed_ui#bg">Blog</a><span>&nbsp;post</span></li>
+              <li>
+                Looking into code
+                
+              </li>
+            </ul>
+          </h2>
         </section>
         <section>
-          <h1>Solutions?</h1>
-          <h3>
-            <div>They come down to "write your own scroll"...</div>
-            <div>
-              or - find already working implementation
-              
-            </div>
-          </h3>
+          <h1>Three "T"s</h1>
+          <h2>
+            <ul>
+              <li>Transform</li>
+              <li>Translate</li>
+              <li>
+                Transition
+                
+              </li>
+            </ul>
+          </h2>
         </section>
         <section>
-          <h1>Gmail for iOS web</h1>
-          <h3><a href="https://web.archive.org/web/20141001100814/https://developers.google.com/mobile/articles/webapp_fixed_ui#bg">Here's</a><span>
-              an old article by Ryan Fioravanti
-              </span></h3>
+          <h1>
+            Let's divide algo to three parts
+            
+          </h1>
+        </section>
+        <section>
+          <h1>
+            Part 1 - deceleration
+            
+          </h1>
         </section>
         <section>
           <h3>Natural deceleration - in motion</h3>
-          <video data-autoplay="true">
-            <source data-src="video/deceleration1.mp4" type="video/mp4">
-            <source data-src="video/deceleration1.webm" type="video/webm">
+          <video loop="true" data-autoplay="true">
+            <source data-src="video/deceleration-hd.mp4" type="video/mp4">
+            <source data-src="video/deceleration.mp4" type="video/mp4">
           </video>
         </section>
         <section>
-          <h3>The heart of logic</h3>
-          <pre class="stretch"><code class="javascript">doMomentum() {
-  const velocity = this.getEndVelocity();
-  const acceleration = this.getAcceleration(velocity);
-  const displacement = - (velocity * velocity) / (2 * acceleration);
-  const time = - velocity / acceleration;
-  const newY = this.contentOffsetY + displacement;
-
+          <h3>And in physics?</h3>
+          <p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi><mo>&#x000A0;</mo><mo>=</mo><mo>&#x000A0;</mo><msub><mi>v</mi><mn>0</mn></msub><mo>&#x000A0;</mo><mo>+</mo><mo>&#x02009;</mo><mi>a</mi><mi>t</mi><mspace linebreak="newline"/></math></p>
+          <p>
+            <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi><mo>&#x000A0;</mo><mo>=</mo><mo>&#x000A0;</mo><msub><mi>x</mi><mn>0</mn></msub><mo>&#x000A0;</mo><mo>+</mo><mo>&#x000A0;</mo><msub><mi>v</mi><mn>0</mn></msub><mi>t</mi><mo>&#x000A0;</mo><mo>+</mo><mo>&#x02009;</mo><mfrac><mrow><mi>a</mi><msup><mi>t</mi><mn>2</mn></msup></mrow><mn>2</mn></mfrac></math>
+            
+          </p>
+        </section>
+        <section>
+          <h3>Let's see some code</h3>
+          <pre class="stretch"><code style="font-size: 1.6em" class="javascript">doMomentum() {
   const transition =
-      `${rflect.browser.css.getSelectorCasedProperty('transform')
-      } ${time}ms cubic-bezier(0.33, 0.66, 0.66, 1)`;
+      `transform ${time
+      }ms cubic-bezier(0.33, 0.66, 0.66, 1)`;
 
-  rflect.browser.css.setTransition(this.element, transition);
-  rflect.browser.css.setTransform(this.element,
+  this.setTransition(this.element, transition);
+
+  this.setTransform(this.element,
       `translate3d(0, ${newY}px, 0)`);
-  this.contentOffsetY = newY;
-
-  this.isDecelerating_ = true;
 }
 </code></pre>
         </section>
         <section>
-          <h3>Movement with constant acceleration (deceleration)</h3>
-          <p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi><mo>&#x000A0;</mo><mo>=</mo><mo>&#x000A0;</mo><msub><mi>v</mi><mn>0</mn></msub><mo>&#x000A0;</mo><mo>+</mo><mo>&#x02009;</mo><mi>a</mi><mi>t</mi><mspace linebreak="newline"/></math></p>
-          <p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi><mo>&#x000A0;</mo><mo>=</mo><mo>&#x000A0;</mo><msub><mi>x</mi><mn>0</mn></msub><mo>&#x000A0;</mo><mo>+</mo><mo>&#x000A0;</mo><msub><mi>v</mi><mn>0</mn></msub><mi>t</mi><mo>&#x000A0;</mo><mo>+</mo><mo>&#x02009;</mo><mfrac><mrow><mi>a</mi><msup><mi>t</mi><mn>2</mn></msup></mrow><mn>2</mn></mfrac></math></p>
+          <h1>Three "T"s</h1>
+          <h2>
+            <ul>
+              <li>Transform</li>
+              <li>Translate</li>
+              <li>
+                Transition
+                
+              </li>
+            </ul>
+          </h2>
+        </section>
+        <section>
+          <h3>Code</h3>
+          <pre class="stretch"><code style="font-size: 1.6em" class="javascript">doMomentum() {
+  const transition =
+      `transform ${time
+      }ms cubic-bezier(0.33, 0.66, 0.66, 1)`;
+
+  this.setTransition(this.element, transition);
+
+  this.setTransform(this.element,
+      `translate3d(0, ${newY}px, 0)`);
+}
+</code></pre>
+        </section>
+        <section>
+          <h3>What about time and Δx?</h3>
           <p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>=</mo><mfrac><mrow><mi>v</mi><mo>-</mo><msub><mi>v</mi><mn>0</mn></msub></mrow><mi>a</mi></mfrac></math></p>
           <p>
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>&#x00394;</mi><mi>x</mi><mo>=</mo><mfrac><mrow><msup><mi>v</mi><mn>2</mn></msup><mo>-</mo><msup><msub><mi>v</mi><mn>0</mn></msub><mn>2</mn></msup></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mspace linebreak="newline"/></math>
@@ -116,37 +198,60 @@
           </p>
         </section>
         <section>
+          <h3>And acceleration (well... it's deceleration)?</h3>
+          <p>
+            <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>&#xA0;</mo><mo>=</mo><mn>0</mn><mo>.</mo><mn>005</mn><mfrac bevelled="true"><mrow><mi>p</mi><mi>x</mi></mrow><msup><mi>ms</mi><mn>2</mn></msup></mfrac></math>
+            
+          </p>
+        </section>
+        <section>
+          <h3>Code</h3>
+          <pre class="stretch"><code style="font-size: 1.6em" class="javascript">doMomentum() {
+  const transition =
+      `transform ${time
+      }ms cubic-bezier(0.33, 0.66, 0.66, 1)`;
+
+  this.setTransition(this.element, transition);
+
+  this.setTransform(this.element,
+      `translate3d(0, ${newY}px, 0)`);
+}
+</code></pre>
+        </section>
+        <section>
           <h3>Natural deceleration</h3>
           <pre><code class="javascript">cubic-bezier(.33, .66, .66, 1)</code></pre><img src="img/bezier1.png" alt="Natural deceleration function" class="white-background">
         </section>
         <section>
           <h3>Natural deceleration - in motion</h3>
-          <video data-autoplay="true">
-            <source data-src="video/deceleration1.mp4" type="video/mp4">
-            <source data-src="video/deceleration1.webm" type="video/webm">
+          <video loop="true" data-autoplay="true">
+            <source data-src="video/deceleration-hd.mp4" type="video/mp4">
+            <source data-src="video/deceleration.mp4" type="video/mp4">
           </video>
         </section>
         <section>
-          <h3>What if we're past the bounds - in motion</h3>
-          <video data-autoplay="true">
-            <source data-src="video/deceleration2.mp4" type="video/mp4">
-            <source data-src="video/deceleration2.webm" type="video/webm">
+          <h1>
+            Part 2 - snap to bounds
+            
+          </h1>
+        </section>
+        <section>
+          <h3>Snapping to bounds</h3>
+          <video loop="true" data-autoplay="true">
+            <source data-src="video/snap-to-bounds-hd.mp4" type="video/mp4">
+            <source data-src="video/snap-to-bounds.mp4" type="video/mp4">
           </video>
         </section>
         <section>
           <h3>What if we're past the bounds?</h3>
-          <pre class="stretch"><code class="javascript">snapToBounds() {
-  const transition = rflect.browser.css.getSelectorCasedProperty('transform') +
-    ' ' + 500 + 'ms ease-out';
-  this.setTransitionAll(transition);
-  if (this.contentOffsetY > 0) {
-    this.contentOffsetY = 0;
-  } else {
-    this.contentOffsetY = this.getLowestContentPosition();
-  }
-  rflect.browser.css.setTransform(this.element,
-      `translate3d(0, ${this.contentOffsetY}px, 0)`);
-  this.isDecelerating_ = true;
+          <pre class="stretch"><code style="font-size: 1.6em" class="javascript">snapToBounds() {
+  const transition = 'transform' +
+    '500ms ease-out';
+  this.setTransition(transition);
+
+  this.setTransform(this.element,
+      `translate3d(0, ${startY
+      }px, 0)`);
 }
 </code></pre>
         </section>
@@ -155,52 +260,42 @@
           <pre><code class="javascript">cubic-bezier(0, 0, .58, 1), ease-out</code></pre><img src="img/bezier2.png" alt="Ease out function" class="white-background">
         </section>
         <section>
-          <h3>What if we're past the bounds - in motion</h3>
-          <video data-autoplay="true">
-            <source data-src="video/deceleration2.mp4" type="video/mp4">
-            <source data-src="video/deceleration2.webm" type="video/webm">
+          <h3>Snapping to bounds</h3>
+          <video loop="true" data-autoplay="true">
+            <source data-src="video/snap-to-bounds-hd.mp4" type="video/mp4">
+            <source data-src="video/snap-to-bounds.mp4" type="video/mp4">
           </video>
         </section>
         <section>
-          <h3>What if we hit the bounds - the most complex case</h3>
-          <h4>Three stages</h4>
-          <ul>
-            <li class="text-blue">To the bounds</li>
-            <li class="text-red">Decelerating past the bounds</li>
-            <li class="text-green">
-              Snapping to bounds
-              
-            </li>
-          </ul>
+          <h1>
+            Part 3 - crossing the bounds
+            
+          </h1>
         </section>
         <section>
-          <h3>Let's visualize</h3>
-          <video data-autoplay="true">
-            <source data-src="video/stages3.mp4" type="video/mp4">
-            <source data-src="video/stages3.webm" type="video/webm">
+          <h3>Crossing the bounds</h3>
+          <video loop="true" data-autoplay="true">
+            <source data-src="video/three-stages-hd.mp4" type="video/mp4">
+            <source data-src="video/three-stages.mp4" type="video/mp4">
           </video>
         </section>
         <section>
           <h3>Code for the first part</h3>
-          <pre class="stretch"><code class="javascript">setUpTransitionStage1() {
-  /*
-   * ...
-   * Here we calculate time, calculate and set
-   * this.endMomentumVelocity_ and this.contentOffsetY
-   * ...
-   */
-  const valueToLowerCubicBezierWith = Math.abs(this.endMomentumVelocity_ /
+          <pre class="stretch"><code style="font-size: 1.6em" class="javascript">setUpTransitionStage1() {
+  const valueToLowerCubicBezierWith =
+      Math.abs(this.endMomentumVelocity_ /
       velocity) * .33;
 
   const transition =
-      rflect.browser.css.getSelectorCasedProperty('transform') + ' ' + time +
+      'transform time' +
       'ms cubic-bezier(.33,' +
       (.66 - valueToLowerCubicBezierWith) +
       ',.66,' +
       (1 - valueToLowerCubicBezierWith) +
       ')'
-  rflect.browser.css.setTransition(this.element, transition);
-  rflect.browser.css.setTransform(this.element,
+
+  this.setTransition(this.element, transition);
+  this.setTransform(this.element,
       `translate3d(0, ${this.contentOffsetY}px, 0)`);
 }
 </code></pre>
@@ -211,32 +306,47 @@
           <p>
             <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>=</mo><mfrac><mrow><mi>v</mi><mo>-</mo><msub><mi>v</mi><mn>0</mn></msub></mrow><mi>a</mi></mfrac></math>
             
-            
           </p>
         </section>
         <section>
           <h3>Custom bezier curve depending on end velocity</h3><img src="img/flatten1.png" alt="Flatness degree 1" class="white-background"><img src="img/flatten2.png" alt="Flatness degree 2" class="white-background"><img src="img/flatten3.png" alt="Flatness degree 3" class="white-background">
         </section>
         <section>
-          <h3>Let's visualize</h3>
-          <video data-autoplay="true">
-            <source data-src="video/stages3.mp4" type="video/mp4">
-            <source data-src="video/stages3.webm" type="video/webm">
+          <h3>Crossing the bounds</h3>
+          <video loop="true" data-autoplay="true">
+            <source data-src="video/three-stages-hd.mp4" type="video/mp4">
+            <source data-src="video/three-stages.mp4" type="video/mp4">
           </video>
         </section>
         <section>
-          <h3>The result</h3>
-          <video data-autoplay="true">
-            <source data-src="video/comparison-native.mp4" type="video/mp4">
-            <source data-src="video/comparison-native.webm" type="video/webm">
-          </video>
-          <video data-autoplay="true">
-            <source data-src="video/comparison-artificial.mp4" type="video/mp4">
-            <source data-src="video/comparison-artificial.webm" type="video/webm">
+          <h1>
+            <div>We understood Google's algorithm</div>
+            <div>
+              How can we use it?
+              
+            </div>
+          </h1>
+        </section>
+        <section>
+          <h3>Solution</h3>
+          <video loop="true" data-autoplay="true">
+            <source data-src="video/artificial-scroll-hd.mp4" type="video/mp4">
+            <source data-src="video/artificial-scroll.mp4" type="video/mp4">
           </video>
         </section>
         <section>
-          <h1>Demo is here</h1><img src="img/qr-code-demo.gif" alt="demo QR code" class="stretch">
+          <h3>The problem</h3>
+          <video loop="true" data-autoplay="true">
+            <source data-src="video/native-scroll-problem-hd.mp4" type="video/mp4">
+            <source data-src="video/native-scroll-problem.mp4" type="video/mp4">
+          </video>
+        </section>
+        <section>
+          <h3>Solution</h3>
+          <video loop="true" data-autoplay="true">
+            <source data-src="video/artificial-scroll-hd.mp4" type="video/mp4">
+            <source data-src="video/artificial-scroll.mp4" type="video/mp4">
+          </video>
         </section>
         <section>
           <h3>It's open-sourced</h3>
@@ -246,10 +356,13 @@
               </a></p>
         </section>
         <section>
+          <h1>Demo is here</h1><img src="img/qr-code-demo.gif" alt="demo QR code" class="stretch">
+        </section>
+        <section>
           <h1>Presentation is here</h1><img src="img/qr-code-presentation.gif" alt="presentation QR code" class="stretch">
         </section>
         <section>
-          <h1>Contacts</h1><img src="img/qr-code-homesite.gif" alt="Home site QR code" class="stretch">
+          <h1>Contacts</h1>
           <p><a href="http://alexeykomov.me">http://alexeykomov.me</a></p>
           <p><a href="alexeykcontact@gmail.com">
               alexeykcontact@gmail.com
@@ -268,11 +381,14 @@
                 </span></li>
           </ul>
         </section>
-        <section data-background="img/photo-1433360405326-e50f909805b3.jpg">
+        <section>
           <h1>
             Thx for your attention
             
           </h1>
+        </section>
+        <section>
+          <h1>Uncanny valley of UI</h1><img src="img/Mori_Uncanny_Valley.svg" alt="General explanation of uncanny valley" class="stretch white-background">
         </section>
       </div>
     </div>
